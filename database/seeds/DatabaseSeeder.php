@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // 2つのテストデータを同時に作成する
+        $this->call(UsersTableSeeder::class);
+        $this->call(DiariesTableSeeder::class);
     }
 }
+

@@ -14,17 +14,16 @@
 use Illuminate\Support\Facades\Route;
 Route::get('/', 'DiaryController@index')->name('diary.index');
 
-// 投稿処理
-Route::get('diary/create', 'DiaryController@create')->name('diary.create');
-// 保存処理
-Route::post('diary/create', 'DiaryController@store')->name('diary.create');
 
-//削除処理
-// {id}には任意の値が入る　今回は削除するレコードを特定
-Route::delete('diary/{id}/delete', 'DiaryController@destroy')->name('diary.destroy');
+// 一覧以外のページはログインしていないと表示(実行)できないように変更
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('diary/create', 'DiaryController@create')->name('diary.create');
+    Route::post('diary/create', 'DiaryController@store')->name('diary.create');
 
-//編集画面
-Route::get('diary/{id}/edit', 'DiaryController@edit')->name('diary.edit');
-//
-// 更処処理
-Route::put('diary/{id}/update', 'DiaryController@update')->name('diary.update');
+    Route::get('diary/{diary}/edit', 'DiaryController@edit')->name('diary.edit');
+    Route::put('diary/{diary}/update', 'DiaryController@update')->name('diary.update');
+
+    Route::delete('diary/{diary}/delete', 'DiaryController@destroy')->name('diary.destroy');
+});
+
+Auth::routes();

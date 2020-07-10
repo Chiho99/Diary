@@ -1,5 +1,5 @@
 <!-- テンプレート名はファイル名の.blade.phpより前の部分 -->
-@extends('layout')
+@extends('layouts.app')
 
 @section('title')
 一覧
