@@ -19,3 +19,6 @@ Route::get('diary/create', 'DiaryController@create')->name('diary.create');
 // 保存処理
 Route::post('diary/create', 'DiaryController@store')->name('diary.create');
 
+//削除処理
+// {id}には任意の値が入る　今回は削除するレコードを特定
+Route::delete('diary/{id}/delete', 'DiaryController@destroy')->name('diary.destroy');
