@@ -52,9 +52,11 @@ class DiaryController extends Controller
 
     // 削除ボタンが押された後の処理
     //  destroy(int $id)には選択されたデータのidが入る
-    public function destroy(int $id){
-        // Diaryモデルを使用して、diariesテーブルから$idと一致するidをもつデータを取得
-        $diary = Diary::find($id);
+    public function destroy(Diary $diary){
+        // urlを直接入力しても表示できないようにする
+        if (Auth::user()->id !== $diary->user_id) {
+            abort(403);
+        }
         // 取得したデータを削除
         $diary->delete();
 
@@ -62,22 +64,25 @@ class DiaryController extends Controller
     }
 
     // 一覧画面の編集ボタン
-    public function edit(int $id){
+    public function edit(Diary $diary){
         // dd($id);
 
-        // Diaryモデルを使用して、diariesテーブルから$idと一致するidをもつデータを取得
-        $diary = Diary::find($id);
-
+        // urlを直接入力しても表示できないようにする
+        if (Auth::user()->id !== $diary->user_id) {
+            abort(403);
+        }
         return view('diaries.edit', [
             'diary' => $diary,
         ]);
     }
     // 編集ページの更新ボタンを押した時の処理
     // バリデーションは新規作成の時と同じ条件のためCreateDiaryを使用
-    public function update(int $id, CreateDiary $request){
-        // 更新には既存のデータを使用するため、find()を用いる
-        $diary = Diary::find($id);
+    public function update(Diary $diary, CreateDiary $request){
 
+        // urlを直接入力しても表示できないようにする
+        if (Auth::user()->id !== $diary->user_id) {
+            abort(403);
+        }
         // 画面で入力されたタイトルを代入
         $diary->title = $request->title;
         // 画面で入力された本文を代入
@@ -88,5 +93,6 @@ class DiaryController extends Controller
         // 一覧ページにリダイレクト
         return redirect()->route('diary.index');
     }
+
 
 }
