@@ -24,6 +24,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('diary/{diary}/update', 'DiaryController@update')->name('diary.update');
 
     Route::delete('diary/{diary}/delete', 'DiaryController@destroy')->name('diary.destroy');
+
+    // いいね機能はログインユーザーのみの機能のため、ここに記述
+    Route::post('diary/{id}/like', 'DiaryController@like');
+    Route::post('diary/{id}/dislike', 'DiaryController@dislike');
 });
 
 Auth::routes();
