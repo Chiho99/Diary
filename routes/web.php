@@ -11,7 +11,7 @@
 |
 */
 
-// use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 Route::get('/', 'DiaryController@index')->name('diary.index');
 
 // 投稿処理
@@ -22,3 +22,9 @@ Route::post('diary/create', 'DiaryController@store')->name('diary.create');
 //削除処理
 // {id}には任意の値が入る　今回は削除するレコードを特定
 Route::delete('diary/{id}/delete', 'DiaryController@destroy')->name('diary.destroy');
+
+//編集画面
+Route::get('diary/{id}/edit', 'DiaryController@edit')->name('diary.edit');
+//
+// 更処処理
+Route::put('diary/{id}/update', 'DiaryController@update')->name('diary.update');

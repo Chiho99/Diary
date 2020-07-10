@@ -16,12 +16,11 @@
             <p>{{ $diary->title }}</p>
             <p>{{ $diary->body }}</p>
             <p>{{ $diary->created_at }}</p>
-            <!-- POSTとGET送信以外は選択できないの、POSTメソッドを選択-->
-            <form action="{{ route('diary.destroy', ['id' => $diary->id]) }}" method="POST" class="d-inline">
-            @csrf
-            <!-- ここで行いたい処理を記述する@method('delete') -->
-            @method('delete')
-            <button class="btn btn-danger">削除</button>
+            <a class="btn btn-success" href="{{ route('diary.edit', ['id' => $diary->id]) }}">編集</a>
+            <form action="{{ route('diary.destroy', ['id' => $diary->id]) }}" method="post" class="d-inline">
+                @csrf
+                @method('delete')
+                <button class="btn btn-danger">削除</button>
             </form>
         </div>
     @endforeach
